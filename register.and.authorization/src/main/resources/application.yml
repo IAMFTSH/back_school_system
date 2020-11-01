@@ -1,0 +1,13 @@
+CONTANT:
+  SERVER_IP: 39.108.11.96
+
+
+spring:
+  profiles:
+    active: 8001
+  redis:
+    host: ${CONTANT.SERVER_IP}
+    port: 6379
+    timeout: 30000
+    password: 123
+    database: 15

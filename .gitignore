@@ -1,0 +1,5 @@
+# Project exclude paths
+/common/target/
+/consumer-open-feign-80/target/
+/eureka/target/
+/register.and.authorization/target/

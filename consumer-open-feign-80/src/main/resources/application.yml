@@ -1,0 +1,35 @@
+server:
+  port: 80
+spring:
+  application:
+    #这个名字关系到注册到注册服务器后的名字
+    name: ConsumerOrderByOpenFeign
+#设置feign 客户端超时时间（openFeign默认支持ribbon）
+#ribbon:
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  #ReadTimeout: 5000
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
+  #ConnectTimeout: 5000
+feign:
+  client:
+    config:
+      # 默认
+      default:
+        connectTimeout: 1000 #客户端向微服务发起连接的最长等待时间
+        readTimeout: 1000 #连接后，等待响应返回的最长时间
+      # 具体到某个微服务的级别
+logging:
+  level:
+    #feign日志以什么级别监控哪个接口
+    learn.spring.cloud.service.PaymentFeignService: debug
+eureka:
+  client:
+    #false表示不用去注册中心注册自己
+    register-with-eureka: true
+    #false表示自己就是注册中心，我的职责是维护服务实例，并不需要去检索服务
+    fetch-registry: true
+    service-url:
+      #设置与EUREKA Server 交互的地址，查询服务和注册服务都需要依赖这个地址
+      defaultZone:
+        http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+
