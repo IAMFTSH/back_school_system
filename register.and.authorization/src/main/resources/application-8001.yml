@@ -34,8 +34,8 @@ mybatis-plus:
       # 如果公司代码比较规范，比如统一了全局都是flag为逻辑删除字段。
       #使用此配置则不需要在实体类上添加 @TableLogic。
       #但如果实体类上有 @TableLogic 则以实体上的为准，忽略全局。 即先查找注解再查找全局，都没有则此表没有逻辑删除。
-  mapper-locations: classpath*:/graduation/project/register/mapper/xml/*.xml             #***********Mapper.xml包路径*****************   按实际情况作出改动
-  type-aliases-package: graduation.project.register.entity      #***********实体类包路径*****************   按实际情况作出改动
+  mapper-locations: classpath*:/graduation/project/mapper/xml/*.xml             #***********Mapper.xml包路径*****************   按实际情况作出改动
+  type-aliases-package: graduation.project.pojo.entity      #***********实体类包路径*****************   按实际情况作出改动
 
 eureka:
   client:
@@ -46,7 +46,7 @@ eureka:
     service-url:
       #设置与EUREKA Server 交互的地址，查询服务和注册服务都需要依赖这个地址
       defaultZone:
-        http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
+        http://localhost:7001/eureka/,http://localhost:7002/eureka/
   instance:
     instance-id: register-8001
     #鼠标移动显示IP地址，在浏览器左下角

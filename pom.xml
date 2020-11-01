@@ -15,6 +15,8 @@
         <module>register.and.authorization</module>
         <module>eureka</module>
         <module>pojo</module>
+        <module>mapper</module>
+        <module>service</module>
     </modules>
 
     <properties>
