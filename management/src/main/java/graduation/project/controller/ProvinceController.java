@@ -31,7 +31,7 @@ public class ProvinceController {
     }
     @PutMapping
     public void putProvince(@RequestBody Province province){
-        boolean result = provinceService.save(province);
+        boolean result = provinceService.updateById(province);
     }
     @DeleteMapping
     public void deleteProvince(int id){

@@ -31,7 +31,7 @@ public class SpecialtyController {
     }
     @PutMapping
     public void putSpecialty(@RequestBody Specialty specialty){
-        boolean result = specialtyService.save(specialty);
+        boolean result = specialtyService.updateById(specialty);
     }
     @DeleteMapping
     public void deleteSpecialty(int id){

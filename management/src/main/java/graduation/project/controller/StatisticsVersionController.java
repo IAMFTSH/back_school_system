@@ -31,7 +31,7 @@ public class StatisticsVersionController {
     }
     @PutMapping
     public void putStatisticsVersion(@RequestBody StatisticsVersion statisticsVersion){
-        boolean result = statisticsVersionService.save(statisticsVersion);
+        boolean result = statisticsVersionService.updateById(statisticsVersion);
     }
     @DeleteMapping
     public void deleteStatisticsVersion(int id){

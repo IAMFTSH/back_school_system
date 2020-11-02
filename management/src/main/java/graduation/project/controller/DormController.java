@@ -31,7 +31,7 @@ public class DormController {
     }
     @PutMapping
     public void putDorm(@RequestBody Dorm dorm){
-        boolean result = dormService.save(dorm);
+        boolean result = dormService.updateById(dorm);
     }
     @DeleteMapping
     public void deleteDorm(int id){

@@ -31,7 +31,7 @@ public class CollegeController {
     }
     @PutMapping
     public void putCollege(@RequestBody College college){
-        boolean result = collegeService.save(college);
+        boolean result = collegeService.updateById(college);
     }
     @DeleteMapping
     public void deleteCollege(int id){

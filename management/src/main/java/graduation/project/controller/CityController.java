@@ -31,7 +31,7 @@ public class CityController {
     }
     @PutMapping
     public void putCity(@RequestBody City city){
-        boolean result = cityService.save(city);
+        boolean result = cityService.updateById(city);
     }
     @DeleteMapping
     public void deleteCity(int id){

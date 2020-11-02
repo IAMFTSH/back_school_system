@@ -31,7 +31,7 @@ public class AreaController {
     }
     @PutMapping
     public void putArea(@RequestBody Area area){
-        boolean result = areaService.save(area);
+        boolean result = areaService.updateById(area);
     }
     @DeleteMapping
     public void deleteArea(int id){

@@ -31,8 +31,8 @@ public class AccountController {
     AccountService accountService;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @PostMapping("account")
-    public Result account(@Valid @RequestBody AccountVo accountVo){
+    @PostMapping("postAccount")
+    public Result postAccount(@Valid @RequestBody AccountVo accountVo){
         accountVo.setPassword(passwordEncoder.encode(accountVo.getPassword()));
         Account account=ToEntity.Account(accountVo);
         try {
@@ -44,12 +44,23 @@ public class AccountController {
         return Result.success();
     }
 
-    @PostMapping("accountByFile")
-    public Result accountByFile(@RequestParam("file") MultipartFile file, @RequestParam("defaultPassword") String defaultPassword, @RequestParam("class_information_id") int classTableId) throws XlsxException {
+    @PostMapping("PostAccountByFile")
+    public Result PostAccountByFile(@RequestParam("file") MultipartFile file, @RequestParam("defaultPassword") String defaultPassword, @RequestParam("class_information_id") int classTableId) throws XlsxException {
 
         return accountService.createAccountByFile(file,defaultPassword,classTableId);
     }
+    @PutMapping("putAccount")
+    public Result putAccount(@Valid @RequestBody AccountVo accountVo){
+        accountVo.setPassword(passwordEncoder.encode(accountVo.getPassword()));
+        Account account=ToEntity.Account(accountVo);
+        try {
+            accountService.updateById(account);
+        }catch (DuplicateKeyException e){
+            return Result.error(HttpStatus.ERROR,account.getUsername()+"用户已存在");
+        };
 
+        return Result.success();
+    }
 
 }
 

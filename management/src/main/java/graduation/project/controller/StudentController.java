@@ -31,7 +31,7 @@ public class StudentController {
     }
     @PutMapping
     public void putStudent(@RequestBody Student student){
-        boolean result = studentService.save(student);
+        boolean result = studentService.updateById(student);
     }
     @DeleteMapping
     public void deleteStudent(int id){

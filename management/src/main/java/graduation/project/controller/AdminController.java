@@ -31,7 +31,7 @@ public class AdminController {
     }
     @PutMapping
     public void putAdmin(@RequestBody Admin admin){
-        boolean result = adminService.save(admin);
+        boolean result = adminService.updateById(admin);
     }
     @DeleteMapping
     public void deleteAdmin(int id){

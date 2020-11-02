@@ -31,7 +31,7 @@ public class ClassTableController {
     }
     @PutMapping
     public void putClassTable(@RequestBody ClassTable classTable){
-        boolean result = classTableService.save(classTable);
+        boolean result = classTableService.updateById(classTable);
     }
     @DeleteMapping
     public void deleteClassTable(int id){

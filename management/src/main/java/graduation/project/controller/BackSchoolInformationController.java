@@ -32,7 +32,7 @@ public class BackSchoolInformationController {
     }
     @PutMapping
     public void putBackSchoolInformation(@RequestBody BackSchoolInformation BackSchoolInformation){
-        boolean result = backSchoolInformationService.save(BackSchoolInformation);
+        boolean result = backSchoolInformationService.updateById(BackSchoolInformation);
     }
     @DeleteMapping
     public void deleteBackSchoolInformation(int id){
