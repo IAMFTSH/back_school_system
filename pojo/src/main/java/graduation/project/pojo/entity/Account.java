@@ -47,8 +47,8 @@ public class Account implements Serializable, UserDetails {
     private String phone;
 
     @ApiModelProperty(value = "是否管理员")
-    @TableField("Administrator")
-    private Boolean Administrator;
+    @TableField("is_administrator")
+    private Boolean administrator;
 
 
     @Override

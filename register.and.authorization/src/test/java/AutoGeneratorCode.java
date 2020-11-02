@@ -45,7 +45,6 @@ public class AutoGeneratorCode {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("register");
         pc.setParent("graduation.project");//这语句和上面语句，自动生成在com.learn.mybatisplu.AutoGeneratorCode目录下
         mpg.setPackageInfo(pc);
 
@@ -105,7 +104,7 @@ public class AutoGeneratorCode {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("account");  // 生成哪个表
+        strategy.setInclude("address","admin","back_school_information","area","city","class_table","college","dorm","province","specialty","statistics_version","student");  // 生成哪个表
         strategy.setNaming(NamingStrategy.underline_to_camel);   //表下划线转驼峰
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//列下划线转驼峰
         //strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");

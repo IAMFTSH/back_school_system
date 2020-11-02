@@ -5,7 +5,7 @@ import graduation.project.common.contant.SecurityConstant;
 import graduation.project.common.result.Result;
 import graduation.project.common.status.HttpStatus;
 import graduation.project.common.util.StringUtils;
-import graduation.project.component.JWTUtils;
+import graduation.project.util.JWTUtils;
 import graduation.project.service.AccountService;
 import graduation.project.service.CaptchaService;
 import graduation.project.pojo.vo.CaptchaVO;

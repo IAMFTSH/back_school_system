@@ -48,8 +48,7 @@ public class AccountVo implements Serializable {
 
     @NotNull
     @ApiModelProperty(value = "是否管理员")
-    @TableField("Administrator")
-    private Boolean Administrator;
+    private Boolean administrator;
 
 
 }

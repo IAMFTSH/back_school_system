@@ -1,8 +1,8 @@
-package graduation.project.framework.security;
+package graduation.project.security;
 
-import graduation.project.util.JWTUtils;
 import graduation.project.pojo.entity.Account;
 import graduation.project.service.AccountService;
+import graduation.project.util.JWTUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
