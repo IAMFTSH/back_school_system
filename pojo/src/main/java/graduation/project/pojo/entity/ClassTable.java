@@ -38,6 +38,4 @@ public class ClassTable implements Serializable {
     @ApiModelProperty(value = "是否毕业班")
     @TableField("is_graduate")
     private Boolean isGraduate;
-
-
 }

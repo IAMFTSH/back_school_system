@@ -50,7 +50,7 @@ public interface HttpStatus
     public static final int BAD_REQUEST = 400;
 
     /**
-     * 未授权
+     * 未授权,登录失败
      */
     public static final int UNAUTHORIZED = 401;
 

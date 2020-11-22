@@ -7,7 +7,7 @@ import graduation.project.common.status.HttpStatus;
 import graduation.project.common.util.StringUtils;
 import graduation.project.util.JWTUtils;
 import graduation.project.service.AccountService;
-import graduation.project.service.CaptchaService;
+import graduation.project.service.impl.CaptchaService;
 import graduation.project.pojo.vo.CaptchaVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,7 @@ public class Login {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
             authorities = authenticationManager.authenticate(token).getAuthorities();
         } catch (BadCredentialsException e) {
-            throw new Exception("账号密码错误", e);
+            return Result.error(401, "账户密码不匹配");
         }
         UserDetails userDetails = User.builder().username(username).password(password).authorities(authorities).build();
         String jwt = jwtUtils.createToken(userDetails);

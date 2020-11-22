@@ -22,6 +22,11 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
 
+#    druid:
+    filters: stat
+#      maxPoolPreparedStatementPerConnectionSize: 20
+#      useGlobalDataSourceStat: true
+#      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
