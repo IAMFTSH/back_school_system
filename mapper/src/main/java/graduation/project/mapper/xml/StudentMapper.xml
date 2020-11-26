@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="graduation.project.mapper.StudentMapper">
-
+    <select id="selectStudent" resultMap="Student">
+        select
+        from calendar join semester on calendar.semester_id=semester.id
+        where calendar.college_id=#{college_id} and calendar.semester_id=#{semester_id}
+        and calendar.deleted=false and semester.deleted=false
+    </select>
+    <resultMap id="Student" type="Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="nativePlace" column="native_place"/>
+        <result property="classId" column="class_Id"/>
+        <result property="dormId" column="dorm_id"/>
+        <result property="parentsPhone" column="parents_phone"/>
+        <association property="classTable" javaType="ClassTable">
+            <id property="id" column="id"/>
+            <result property="specialtyId" column="specialty_id"/>
+            <result property="name" column="name"/>
+            <result property="graduate" column="is_graduate"/>
+            <association property="specialty" javaType="Specialty">
+                <id property="id" column="id"/>
+                <result property="specialtyId" column="specialty_id"/>
+                <result property="collegeId" column="college_id"/>
+                <result property="name" column="name"/>
+                <association property="specialty" javaType="Specialty">
+                    <id property="id" column="id"/>
+                    <result property="name" column="name"/>
+                </association>
+            </association>
+        </association>
+        <association property="dorm" javaType="Dorm">
+            <id property="id" column="id"></id>
+            <result property="area" column="area"/>
+            <result property="num" column="num"/>
+        </association>
+    </resultMap>
 </mapper>

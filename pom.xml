@@ -11,13 +11,14 @@
     <modules>
         <module>common</module>
         <module>consumer-open-feign-80</module>
-        <module>management</module>
-        <module>register.and.authorization</module>
+        <module>teacher</module>
+        <module>student</module>
         <module>eureka</module>
         <module>pojo</module>
         <module>mapper</module>
         <module>service</module>
         <module>config</module>
+        <module>login</module>
     </modules>
 
     <properties>

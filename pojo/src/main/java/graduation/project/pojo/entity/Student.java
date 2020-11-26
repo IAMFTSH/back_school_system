@@ -41,7 +41,7 @@ public class Student implements Serializable {
     private Integer classId;
 
     @ApiModelProperty(value = "宿舍表id")
-    private String dormId;
+    private int dormId;
 
     @ApiModelProperty(value = "父母电话号码")
     private String parentsPhone;

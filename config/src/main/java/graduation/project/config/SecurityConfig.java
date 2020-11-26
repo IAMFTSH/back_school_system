@@ -66,6 +66,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html/**",
                         "/webjars/**").permitAll()
                 // 所有请求
+                .antMatchers("/student/**").hasAnyAuthority("0","1","2")
+                .antMatchers("/teacher/**").hasAnyAuthority("1","2")
                 .anyRequest()
                 // 都需要认证
                 .authenticated()

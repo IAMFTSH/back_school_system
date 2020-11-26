@@ -36,7 +36,7 @@ public class SwaggerConfig {
     @Bean
     public Docket docket(Environment environment){
         //dev环境和test环境
-        Profiles profiles=Profiles.of("8001","8011");
+        Profiles profiles=Profiles.of("8001","8011","8888");
         boolean flag=environment.acceptsProfiles(profiles);;
         ParameterBuilder ticketPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();

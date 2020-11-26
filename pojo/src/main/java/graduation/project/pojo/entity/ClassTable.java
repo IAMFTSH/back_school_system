@@ -30,12 +30,12 @@ public class ClassTable implements Serializable {
     private Integer id;
 
     @ApiModelProperty(value = "专业id")
-    private String specialtyId;
+    private int specialtyId;
 
     @ApiModelProperty(value = "班级名")
     private String name;
 
     @ApiModelProperty(value = "是否毕业班")
     @TableField("is_graduate")
-    private Boolean isGraduate;
+    private Boolean graduate;
 }

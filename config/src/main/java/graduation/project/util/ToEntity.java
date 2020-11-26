@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 public class ToEntity {
 
     public static Account Account(AccountVo accountVo){
-        return new Account(accountVo.getId(),accountVo.getUsername(),accountVo.getPassword(),accountVo.getPhone(),accountVo.getAdministrator());
+        return new Account(accountVo.getId(),accountVo.getUsername(),accountVo.getPassword(),accountVo.getPhone(),accountVo.getRole());
     }
 }

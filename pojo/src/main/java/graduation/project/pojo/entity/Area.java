@@ -78,9 +78,6 @@ public class Area implements Serializable {
     @TableField("DATA_STATE")
     private Integer dataState;
 
-    @ApiModelProperty(value = "租户ID")
-    @TableField("TENANT_CODE")
-    private String tenantCode;
 
 
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -53,29 +51,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter implements Ini
             if (claims != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 String username = (String) claims.get("username");
                 String password = (String) claims.get("password");
- /*               String authorities = (String) claims.get("authorities");
-                List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
-                UserDetails userDetails=User.builder().username(username).password(password).authorities(grantedAuthorities).build();*/
-                String user = (String) redisTemplate.opsForValue().get(username);
-                //判断token是否很久未使用
-                if (!StringUtils.isBlank(user)) {
-                    Account account = (Account) redisTemplate.opsForHash().get("accountUsername:" + username, username);
-                    if (account == null) {
-                        account = accountService.accountSelectOne(username);
-                        redisTemplate.opsForValue().set("account:" + username, account, 1, TimeUnit.DAYS);
-                    }
-                    if (passwordEncoder.matches(password, account.getPassword())) {
-                        List<GrantedAuthority> authoritys = null;
-                        if (account.getAdministrator()) {
-                            authoritys = AuthorityUtils.commaSeparatedStringToAuthorityList("Administrator");
+                String jwt = (String) redisTemplate.opsForValue().get("jwt:" + username);
+                //判断token是否很久未使用，判断jwt是否有效
+                if ((!StringUtils.isBlank(jwt))&&authentication.equals(jwt)) {
+                    //
+                        Account account = (Account) redisTemplate.opsForValue().get("account:" + username);
+                        if (account == null) {
+                            account = accountService.accountSelectOne(username);
+                            redisTemplate.opsForValue().set("account:" + username, account, 1, TimeUnit.DAYS);
                         }
-                        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, account.getPassword(), authoritys);
-                        //在上下文中写入jwt解析后的信息，经过UsernamePasswordAuthenticationFilter时就会认为验证通过
-                        SecurityContextHolder.getContext().setAuthentication(token);
-                        redisTemplate.expire(username, 30 * 60, TimeUnit.SECONDS);
+                        if (passwordEncoder.matches(password, account.getPassword())) {
+                            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, account.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList(Integer.toString(account.getRole())));
+                            //在上下文中写入jwt解析后的信息，经过UsernamePasswordAuthenticationFilter时就会认为验证通过
+                            SecurityContextHolder.getContext().setAuthentication(token);
+                            redisTemplate.expire(username, 1, TimeUnit.HOURS);
+                        }
                     }
                 }
-            }
         }
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
