@@ -2,6 +2,10 @@ package graduation.project.mapper;
 
 import graduation.project.pojo.entity.BackSchoolInformation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import graduation.project.pojo.vo.BackSchoolInformationAndStudentVO;
+import graduation.project.pojo.vo.BackSchoolInformationVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface BackSchoolInformationMapper extends BaseMapper<BackSchoolInformation> {
 
+    List<BackSchoolInformationAndStudentVO> selectBackSchoolInformationMapperAndStudent(BackSchoolInformationAndStudentVO backSchoolInformationAndStudentVO);
+
+    BackSchoolInformationVO selectBackSchoolInformationByUsername(String username);
 }

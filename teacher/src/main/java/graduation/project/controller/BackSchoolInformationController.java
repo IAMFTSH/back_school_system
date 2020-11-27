@@ -3,10 +3,13 @@ package graduation.project.controller;
 
 import graduation.project.common.result.Result;
 import graduation.project.pojo.entity.BackSchoolInformation;
+import graduation.project.pojo.vo.BackSchoolInformationAndStudentVO;
 import graduation.project.service.BackSchoolInformationService;
 import graduation.project.service.BackSchoolInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,10 +24,17 @@ import org.springframework.web.bind.annotation.*;
 public class BackSchoolInformationController {
     @Autowired
     BackSchoolInformationService backSchoolInformationService;
+
     @GetMapping
     public Result getBackSchoolInformation(int id){
         BackSchoolInformation BackSchoolInformation = backSchoolInformationService.getById(id);
         return Result.success(BackSchoolInformation);
+    }
+
+    @GetMapping("List")
+    public Result getList(BackSchoolInformationAndStudentVO backSchoolInformationAndStudentVO){
+        List<BackSchoolInformationAndStudentVO> backSchoolInformationAndStudentVOS = backSchoolInformationService.selectBackSchoolInformationMapperAndStudent(backSchoolInformationAndStudentVO);
+        return Result.success(backSchoolInformationAndStudentVOS);
     }
     @PostMapping
     public void postBackSchoolInformation(@RequestBody BackSchoolInformation BackSchoolInformation){

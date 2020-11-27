@@ -1,18 +1,16 @@
 package graduation.project.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-
-import java.time.LocalDate;
-import java.util.Date;
-
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -20,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 邝明山
- * @since 2020-11-02
+ * @since 2020-11-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -42,7 +40,7 @@ public class Area implements Serializable {
     @TableField("CITY_CODE")
     private String cityCode;
 
-    @ApiModelProperty(value = "市名称")
+    @ApiModelProperty(value = "区名称")
     @TableField("AREA_NAME")
     private String areaName;
 
@@ -64,11 +62,11 @@ public class Area implements Serializable {
 
     @ApiModelProperty(value = "创建时间")
     @TableField("GMT_CREATE")
-    private LocalDate gmtCreate;
+    private Date gmtCreate;
 
     @ApiModelProperty(value = "修改时间")
     @TableField("GMT_MODIFIED")
-    private LocalDate gmtModified;
+    private Date gmtModified;
 
     @ApiModelProperty(value = "备注")
     @TableField("MEMO")
@@ -77,7 +75,6 @@ public class Area implements Serializable {
     @ApiModelProperty(value = "状态")
     @TableField("DATA_STATE")
     private Integer dataState;
-
 
 
 }

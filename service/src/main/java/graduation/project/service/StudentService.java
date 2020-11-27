@@ -2,6 +2,9 @@ package graduation.project.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import graduation.project.pojo.entity.Student;
+import graduation.project.pojo.vo.StudentVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import graduation.project.pojo.entity.Student;
  * @since 2020-11-02
  */
 public interface StudentService extends IService<Student> {
+    public List<StudentVo> studentSelect(StudentVo studentVo);
 
+    StudentVo selectStudentByUsername(String username);
 }

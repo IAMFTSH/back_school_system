@@ -6,7 +6,7 @@ spring:
     name: student
   datasource:
     username: root
-    password: 123
+    password: ${CONTANT.PASSWORD}
     url: jdbc:mysql://${CONTANT.SERVER_IP}:3306/back_school_system?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource

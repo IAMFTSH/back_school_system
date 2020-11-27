@@ -1,14 +1,14 @@
 package graduation.project.pojo.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 邝明山
- * @since 2020-11-02
+ * @since 2020-11-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,16 +26,20 @@ public class ClassTable implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "class_table_id", type = IdType.AUTO)
+    private Integer classTableId;
 
     @ApiModelProperty(value = "专业id")
-    private int specialtyId;
+    private Integer specialtyId;
 
     @ApiModelProperty(value = "班级名")
-    private String name;
+    private String classTableName;
 
     @ApiModelProperty(value = "是否毕业班")
-    @TableField("is_graduate")
-    private Boolean graduate;
+    private Boolean isGraduate;
+
+    @ApiModelProperty(value = "专业")
+    private Specialty specialty;
+
+
 }

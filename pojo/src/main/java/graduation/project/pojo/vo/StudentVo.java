@@ -1,7 +1,9 @@
-package graduation.project.pojo.entity;
+package graduation.project.pojo.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import graduation.project.pojo.entity.ClassTable;
+import graduation.project.pojo.entity.Dorm;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,24 +12,17 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
-
 /**
- * <p>
- * 学生信息表
- * </p>
- *
  * @author 邝明山
- * @since 2020-11-26
+ * on 2020/11/27 12:03
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Student对象", description="学生信息表")
-public class Student implements Serializable {
+@ApiModel(value="StudentVo", description="")
+public class StudentVo {
 
     private static final long serialVersionUID=1L;
 
@@ -44,12 +39,33 @@ public class Student implements Serializable {
     private String nativePlace;
 
     @ApiModelProperty(value = "班级表id")
-    private Integer classId;
+    private Integer classTableId;
+
+    @ApiModelProperty(value = "班级名")
+    private String classTableName;
+
+    @ApiModelProperty(value = "是否毕业班")
+    private Boolean isGraduate;
+
+    private Integer specialtyId;
+
+    @ApiModelProperty(value = "专业")
+    private String specialtyName;
+
+    private Integer collegeId;
+
+    @ApiModelProperty(value = "学院名")
+    private String collegeName;
 
     @ApiModelProperty(value = "宿舍表id")
     private Integer dormId;
 
+    @ApiModelProperty(value = "宿舍区")
+    private String dormArea;
+
+    @ApiModelProperty(value = "宿舍号")
+    private Integer dormNum;
+
     @ApiModelProperty(value = "父母电话号码")
     private String parentsPhone;
-
 }

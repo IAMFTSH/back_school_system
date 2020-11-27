@@ -1,9 +1,13 @@
 package graduation.project.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import graduation.project.common.result.Result;
 import graduation.project.common.status.HttpStatus;
 import graduation.project.pojo.entity.Account;
+import graduation.project.pojo.entity.Student;
+import graduation.project.pojo.vo.StudentVo;
 import graduation.project.service.AccountService;
+import graduation.project.service.StudentService;
 import graduation.project.util.JWTUtils;
 import graduation.project.util.ToVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +19,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -26,10 +30,10 @@ import java.util.concurrent.TimeUnit;
  * on 2020/11/22 20:19
  */
 @RestController
-@RequestMapping("student")
+@RequestMapping("student/student")
 public class StudentController {
     @Autowired
-    AccountService accountService;
+    StudentService studentService;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -39,47 +43,25 @@ public class StudentController {
     @GetMapping()
     public Result get() {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        Account account= (Account) redisTemplate.opsForValue().get("account"+username);
-        if(account==null) {
-            account = accountService.accountSelectOne(username);
+        StudentVo studentVo = studentService.selectStudentByUsername(username);
+        if(studentVo!=null) {
+            return Result.success(studentVo);
+        }else {
+            Student student = new Student();
+            student.setUsername(username);
+            studentService.save(student);
+            studentVo = studentService.selectStudentByUsername(username);
+            return Result.success(studentVo);
         }
-        return Result.success(ToVo.Account(account));
     }
-    @PutMapping("putAccountPhone")
-    public Result putAccountPhone(@RequestParam("phone") String phone) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    @PutMapping
+    public void put(@RequestBody Student student){
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        Account account= (Account) redisTemplate.opsForValue().get("account"+username);
-        if(account==null) {
-            account = accountService.accountSelectOne(username);
-        }
-        account.setPhone(phone);
-        Boolean result =accountService.updateById(account);
-        if (result == true) {
-            redisTemplate.opsForValue().set("account:" + account.getUsername(), account, 1, TimeUnit.DAYS);
-            return Result.success();
-        } else {
-            return Result.error(HttpStatus.MOVED_PERM, account.getUsername()+"账户不存在");
-        }
+        student.setUsername(username);
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("username",username);
+        boolean update = studentService.update(student, queryWrapper);
     }
-    @PutMapping("putAccountPassword")
-    public Result putAccountPassword(@RequestParam("password") String password) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        Account account= (Account) redisTemplate.opsForValue().get("account"+username);
-        if(account==null) {
-            account = accountService.accountSelectOne(username);
-        }
-        account.setPassword(passwordEncoder.encode(password));
-        Boolean result =accountService.updateById(account);
-        if (result == true) {
-            redisTemplate.opsForValue().set("account:" + account.getUsername(), account, 1, TimeUnit.DAYS);
-            List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList(Integer.toString(account.getRole()));
-            UserDetails userDetails = User.builder().username(account.getUsername()).password(password).authorities(grantedAuthorities).build();
-            String jwt = jwtUtils.createToken(userDetails);
-            return Result.success(jwt);
-        } else {
-            return Result.error(HttpStatus.MOVED_PERM, account.getUsername()+"账户不存在");
-        }
-    }
+
 }

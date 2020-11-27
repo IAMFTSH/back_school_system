@@ -1,39 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="graduation.project.mapper.StudentMapper">
-    <select id="selectStudent" resultMap="Student">
-        select
-        from calendar join semester on calendar.semester_id=semester.id
-        where calendar.college_id=#{college_id} and calendar.semester_id=#{semester_id}
-        and calendar.deleted=false and semester.deleted=false
+    <select id="selectStudent" resultMap="Student" parameterType="graduation.project.pojo.vo.StudentVo">
+        SELECT
+        student.student_id,
+        student.username,
+        student.student_name,
+        student.native_place,
+        student.class_id,
+        student.dorm_id,
+        student.parents_phone,
+        dorm.dorm_id,
+        dorm.dorm_area,
+        dorm.dorm_num,
+        class_table.class_table_id,
+        class_table.specialty_id,
+        class_table.class_table_name,
+        class_table.is_graduate,
+        specialty.specialty_id,
+        specialty.college_id,
+        specialty.specialty_name,
+        college.college_id,
+        college.college_name,
+        FROM
+        ((((
+        student
+        JOIN dorm ON student.dorm_id = dorm.dorm_id
+        )
+        JOIN class_table ON student.class_id = class_table.class_table_id
+        )
+        JOIN specialty ON class_table.specialty_id = specialty.specialty_id
+        )
+        JOIN college ON specialty.college_id = college.college_id)
+        <where>
+            <if test="classTableId!=null and classTableId !=0">
+                and class_table_id = #{classTableId}
+            </if>
+            <if test="dormId!=null and dormId !=0">
+                and dorm_id = #{dormId}
+            </if>
+            <if test="collegeId!=null and collegeId !=0">
+                and college.college_id = #{collegeId}
+            </if>
+            <if test="specialtyId!=null and specialtyId!=0">
+                and class_table.specialty_id = #{specialtyId}
+            </if>
+            <if test="username!=null and username!=0">
+                and username = #{username}
+            </if>
+        </where>
     </select>
-    <resultMap id="Student" type="Student">
-        <id property="id" column="id"/>
-        <result property="name" column="name"/>
+    <select id="selectStudentByUsername" resultMap="Student" parameterType="string">
+        SELECT
+        student.student_id,
+        student.username,
+        student.student_name,
+        student.native_place,
+        student.parents_phone,
+        dorm.dorm_id,
+        dorm.dorm_area,
+        dorm.dorm_num,
+        class_table.class_table_id,
+        class_table.specialty_id,
+        class_table.class_table_name,
+        class_table.is_graduate,
+        specialty.specialty_id,
+        specialty.college_id,
+        specialty.specialty_name,
+        college.college_id,
+        college.college_name
+        FROM
+        ((((
+        student
+        LEFT JOIN dorm ON student.dorm_id = dorm.dorm_id
+        )
+        LEFT JOIN class_table ON student.class_id = class_table.class_table_id
+        )
+        LEFT JOIN specialty ON class_table.specialty_id = specialty.specialty_id
+        )
+        LEFT JOIN college ON specialty.college_id = college.college_id)
+        where student.username=#{username}
+    </select>
+    <resultMap id="Student" type="graduation.project.pojo.vo.StudentVo">
+        <id property="studentId" column="student_id"/>
+        <result property="username" column="username"/>
+        <result property="studentName" column="student_name"/>
         <result property="nativePlace" column="native_place"/>
-        <result property="classId" column="class_Id"/>
-        <result property="dormId" column="dorm_id"/>
         <result property="parentsPhone" column="parents_phone"/>
-        <association property="classTable" javaType="ClassTable">
-            <id property="id" column="id"/>
-            <result property="specialtyId" column="specialty_id"/>
-            <result property="name" column="name"/>
-            <result property="graduate" column="is_graduate"/>
-            <association property="specialty" javaType="Specialty">
-                <id property="id" column="id"/>
-                <result property="specialtyId" column="specialty_id"/>
-                <result property="collegeId" column="college_id"/>
-                <result property="name" column="name"/>
-                <association property="specialty" javaType="Specialty">
-                    <id property="id" column="id"/>
-                    <result property="name" column="name"/>
-                </association>
-            </association>
-        </association>
-        <association property="dorm" javaType="Dorm">
-            <id property="id" column="id"></id>
-            <result property="area" column="area"/>
-            <result property="num" column="num"/>
-        </association>
+        <result property="classTableId" column="class_table_id"/>
+        <result property="classTableName" column="class_table_name"/>
+        <result property="isGraduate" column="is_graduate"/>
+        <result property="specialtyId" column="specialty_id"/>
+        <result property="specialtyName" column="specialty_name"/>
+        <result property="collegeId" column="college_id"/>
+        <result property="collegeName" column="college_name"/>
+        <result property="dormId" column="dorm_id"/>
+        <result property="dormArea" column="dorm_area"/>
+        <result property="dormNum" column="dorm_num"/>
     </resultMap>
 </mapper>

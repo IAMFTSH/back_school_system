@@ -3,9 +3,12 @@ package graduation.project.controller;
 
 import graduation.project.common.result.Result;
 import graduation.project.pojo.entity.Student;
+import graduation.project.pojo.vo.StudentVo;
 import graduation.project.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -25,6 +28,12 @@ public class StudentController {
         Student student = studentService.getById(id);
         return Result.success(student);
     }
+    @GetMapping("list")
+    public Result getStudentList(StudentVo studentVo ){
+        List<StudentVo> studentVos = studentService.studentSelect(studentVo);
+        return Result.success(studentVos);
+    }
+
     @PostMapping
     public void postStudent(@RequestBody Student student){
         boolean result = studentService.save(student);
@@ -37,5 +46,7 @@ public class StudentController {
     public void deleteStudent(int id){
         boolean result = studentService.removeById(id);
     }
+
+
 }
 
