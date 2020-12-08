@@ -1,5 +1,9 @@
 server:
   port: 8011
+  ssl:
+    key-store: classpath:4885924_mingweb.fun.pfx
+    key-store-password: 6C1dd6ga
+    key-store-type: PKCS12
 spring:
   application:
     #这个名字关系到注册到注册服务器后的名字
@@ -51,7 +55,7 @@ eureka:
     service-url:
       #设置与EUREKA Server 交互的地址，查询服务和注册服务都需要依赖这个地址
       defaultZone:
-        http://localhost:7001/eureka/,http://localhost:7002/eureka/
+        https://mingweb.fun:7001/eureka/
   instance:
     instance-id: teacher-8011
     #鼠标移动显示IP地址，在浏览器左下角

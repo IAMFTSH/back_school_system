@@ -1,5 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="graduation.project.mapper.ProvinceMapper">
-
+    <select id="all" resultMap="all">
+        select province.province_id,
+               province.province_code,
+               province.province_name,
+               province.short_name,
+               province.lng,
+               province.lat,
+               province.sort,
+               province.gmt_create,
+               province.gmt_modified,
+               province.memo,
+               province.data_state,
+               province.tenant_code,
+               c.city_id,
+               c.city_code,
+               c.city_name,
+               c.short_name,
+               c.province_code,
+               c.lng,
+               c.lat,
+               c.sort,
+               c.gmt_create,
+               c.gmt_modified,
+               c.memo,
+               c.data_state,
+               c.tenant_code,
+               a.area_id,
+               a.area_code,
+               a.city_code,
+               a.area_name,
+               a.short_name,
+               a.lng,
+               a.lat,
+               a.sort,
+               a.gmt_create,
+               a.gmt_modified,
+               a.memo,
+               a.data_state
+        from province
+                     join city c on province.PROVINCE_CODE = c.PROVINCE_CODE
+                     join area a on c.CITY_CODE = a.CITY_CODE
+    </select>
+    <resultMap id="all" type="graduation.project.pojo.vo.ProvinceVo">
+        <result column="province_id" property="provinceId"/>
+        <result column="province_code" property="provinceCode"/>
+        <result column="province_name" property="provinceName"/>
+        <result column="lng" property="lng"/>
+        <result column="lat" property="lat"/>
+        <result column="data_state" property="dataState"/>
+        <collection property="cityVo" ofType="graduation.project.pojo.vo.CityVo">
+            <result column="city_id" property="cityId"/>
+            <result column="city_code" property="cityCode"/>
+            <result column="city_name" property="cityName"/>
+            <result column="province_code" property="provinceCode"/>
+            <result column="lng" property="lng"/>
+            <result column="lat" property="lat"/>
+            <result column="data_state" property="dataState"/>
+            <collection property="areaVo" ofType="graduation.project.pojo.vo.AreaVo">
+                <result column="area_id" property="areaId"/>
+                <result column="area_code" property="areaCode"/>
+                <result column="city_code" property="cityCode"/>
+                <result column="area_name" property="areaName"/>
+                <result column="lng" property="lng"/>
+                <result column="lat" property="lat"/>
+                <result column="data_state" property="dataState"/>
+            </collection>
+        </collection>
+    </resultMap>
 </mapper>

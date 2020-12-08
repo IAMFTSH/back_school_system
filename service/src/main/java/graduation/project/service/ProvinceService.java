@@ -2,6 +2,9 @@ package graduation.project.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import graduation.project.pojo.entity.Province;
+import graduation.project.pojo.vo.ProvinceVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import graduation.project.pojo.entity.Province;
  */
 public interface ProvinceService extends IService<Province> {
 
+    List<ProvinceVo> all();
 }

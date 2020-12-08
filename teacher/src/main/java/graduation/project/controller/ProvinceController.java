@@ -3,9 +3,13 @@ package graduation.project.controller;
 
 import graduation.project.common.result.Result;
 import graduation.project.pojo.entity.Province;
+import graduation.project.pojo.vo.ProvinceVo;
 import graduation.project.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,10 +24,18 @@ import org.springframework.web.bind.annotation.*;
 public class ProvinceController {
     @Autowired
     ProvinceService provinceService;
+    @Autowired
+    RedisTemplate redisTemplate;
     @GetMapping
     public Result getProvince(int id){
         Province province = provinceService.getById(id);
         return Result.success(province);
+    }
+
+    @GetMapping("all")
+    public Result getAll(){
+        List<ProvinceVo> all= provinceService.all();
+        return Result.success(all);
     }
     @PostMapping
     public void postProvince(@RequestBody Province province){

@@ -2,6 +2,9 @@ package graduation.project.mapper;
 
 import graduation.project.pojo.entity.Province;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import graduation.project.pojo.vo.ProvinceVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ProvinceMapper extends BaseMapper<Province> {
 
+    List<ProvinceVo> all();
 }

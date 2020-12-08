@@ -1,7 +1,7 @@
 CONTANT:
-  SERVER_IP: localhost
   REDIS_IP: 59.110.68.237
-  PASSWORD: 123456
+  SQL_IP: 59.110.68.237
+  SQLPASSWORD: 123
 spring:
   profiles:
     active: 8001

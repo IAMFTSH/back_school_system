@@ -1,6 +1,7 @@
 package graduation.project.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import graduation.project.common.result.Result;
 import graduation.project.pojo.entity.BackSchoolInformation;
 import graduation.project.pojo.entity.Student;
@@ -40,14 +41,20 @@ public class BackSchoolInformationController {
             BackSchoolInformation backSchoolInformation = new BackSchoolInformation();
             backSchoolInformation.setUsername(username);
             backSchoolInformation.setStatisticsVersionId((Integer) redisTemplate.opsForValue().get("statistics_version_id"));
+            backSchoolInformationService.save(backSchoolInformation);
             backSchoolInformationVO = backSchoolInformationService.selectBackSchoolInformationByUsername(username);
             return Result.success(backSchoolInformationVO);
         }
     }
 
     @PutMapping
-    public void putBackSchoolInformation(@RequestBody BackSchoolInformation BackSchoolInformation) {
-        boolean result = backSchoolInformationService.updateById(BackSchoolInformation);
+    public void put(@RequestBody BackSchoolInformation backSchoolInformation) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        backSchoolInformation.setUsername(username);
+        backSchoolInformation.setStatisticsVersionId((Integer) redisTemplate.opsForValue().get("statistics_version_id"));
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("username",username);
+        boolean update = backSchoolInformationService.update(backSchoolInformation, queryWrapper);
     }
 }
 

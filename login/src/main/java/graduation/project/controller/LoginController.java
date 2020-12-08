@@ -3,8 +3,6 @@ package graduation.project.controller;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import graduation.project.common.contant.SecurityConstant;
 import graduation.project.common.result.Result;
-import graduation.project.common.status.HttpStatus;
-import graduation.project.common.util.StringUtils;
 import graduation.project.util.JWTUtils;
 import graduation.project.service.AccountService;
 import graduation.project.service.impl.CaptchaService;

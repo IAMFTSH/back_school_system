@@ -189,20 +189,20 @@
                 province.TENANT_CODE,
                 statistics_version.statistics_version_id,
                 statistics_version.statistics_version_name,
-                statistics_version.ENABLE
+                statistics_version.enable
         FROM
                 ((((
                         back_school_information
-                                JOIN statistics_version ON statistics_version.statistics_version_id = back_school_information.statistics_version_id
+                                LEFT JOIN statistics_version ON statistics_version.statistics_version_id = back_school_information.statistics_version_id
                         )
-                        JOIN area ON back_school_information.area_code = area.AREA_CODE
+                        Left JOIN area ON area.AREA_CODE  = back_school_information.area_code
                         )
-                        JOIN city ON area.CITY_CODE = city.CITY_CODE
+                        Left JOIN city ON area.CITY_CODE = city.CITY_CODE
                          )
-                        JOIN province ON city.PROVINCE_CODE = province.PROVINCE_CODE
+                        Left JOIN province ON city.PROVINCE_CODE = province.PROVINCE_CODE
                         )
         WHERE
-                username = #{username}
+                username = 3333
     </select>
     <resultMap id="BackSchoolInformationAndStudent" type="graduation.project.pojo.vo.BackSchoolInformationAndStudentVO">
         <id property="studentId" column="student_id"/>
