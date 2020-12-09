@@ -21,20 +21,20 @@ public class CollegeController {
     @Autowired
     CollegeService collegeService;
     @GetMapping
-    public Result getCollege(int id){
+    public Result get(int id){
         College college = collegeService.getById(id);
         return Result.success(college);
     }
     @PostMapping
-    public void postCollege(@RequestBody College college){
+    public void post(@RequestBody College college){
         boolean result = collegeService.save(college);
     }
     @PutMapping
-    public void putCollege(@RequestBody College college){
+    public void put(@RequestBody College college){
         boolean result = collegeService.updateById(college);
     }
     @DeleteMapping
-    public void deleteCollege(int id){
+    public void delete(int id){
         boolean result = collegeService.removeById(id);
     }
 }

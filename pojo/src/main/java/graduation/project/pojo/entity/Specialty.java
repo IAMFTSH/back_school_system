@@ -34,7 +34,6 @@ public class Specialty implements Serializable {
     @ApiModelProperty(value = "专业")
     private String specialtyName;
 
-    @ApiModelProperty(value = "专业")
-    private College college;
+
 
 }

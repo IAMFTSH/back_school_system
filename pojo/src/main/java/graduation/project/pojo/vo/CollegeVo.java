@@ -1,7 +1,8 @@
-package graduation.project.pojo.entity;
+package graduation.project.pojo.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import graduation.project.pojo.entity.Specialty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,10 +10,11 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
- * 班级表
+ * 学院
  * </p>
  *
  * @author 邝明山
@@ -21,21 +23,17 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="ClassTable对象", description="班级表")
-public class ClassTable implements Serializable {
+@ApiModel(value="College对象", description="学院")
+public class CollegeVo implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "class_table_id", type = IdType.AUTO)
-    private Integer classTableId;
+    @TableId(value = "college_id", type = IdType.AUTO)
+    private Integer collegeId;
 
-    @ApiModelProperty(value = "专业id")
-    private Integer specialtyId;
+    @ApiModelProperty(value = "学院名")
+    private String collegeName;
 
-    @ApiModelProperty(value = "班级名")
-    private String classTableName;
-
-    @ApiModelProperty(value = "是否毕业班")
-    private Boolean isGraduate;
-
+    @ApiModelProperty(value = "专业")
+    private List<SpecialtyVo> specialtyVo;
 }

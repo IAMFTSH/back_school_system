@@ -2,6 +2,9 @@ package graduation.project.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import graduation.project.pojo.entity.College;
+import graduation.project.pojo.vo.CollegeVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,5 @@ import graduation.project.pojo.entity.College;
  * @since 2020-11-02
  */
 public interface CollegeService extends IService<College> {
-
+    List<CollegeVo> selectCollegeToClass();
 }

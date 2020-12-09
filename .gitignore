@@ -1,5 +1,6 @@
 # Project exclude paths
-/common/target/
-/consumer-open-feign-80/target/
-/eureka/target/
-/student/target/
+/*/target/
+/login/target/classes/4885924_mingweb.fun.pfx
+/login/target/docker/4885924_mingweb.fun.pfx
+/teacher/target/classes/4885924_mingweb.fun.pfx
+/teacher/target/docker/4885924_mingweb.fun.pfx

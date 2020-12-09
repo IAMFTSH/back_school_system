@@ -1,6 +1,8 @@
 package graduation.project.config;
 
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -33,6 +35,10 @@ import java.util.List;
 //http://localhost:9999/swagger-ui.html
 public class SwaggerConfig {
     public static final String AUTHORIZATION_HEADER = "Authentication";
+
+    @Value("${server.port}")
+    private String servePort;
+
     @Bean
     public Docket docket(Environment environment){
         //dev环境和test环境
@@ -63,7 +69,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo(){
         Contact contact=new Contact("FTSH","https://www.hao123.com/","2244456@qq.com");
         return  new ApiInfo(
-                "title",
+                servePort,
                 "description",
                 "version",
                 "https://www.baidu.com/",

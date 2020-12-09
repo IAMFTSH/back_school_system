@@ -2,6 +2,9 @@ package graduation.project.mapper;
 
 import graduation.project.pojo.entity.College;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import graduation.project.pojo.vo.CollegeVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface CollegeMapper extends BaseMapper<College> {
 
+    List<CollegeVo> selectCollegeToClass();
 }

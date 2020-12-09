@@ -60,11 +60,14 @@ public class StudentVo {
     @ApiModelProperty(value = "宿舍表id")
     private Integer dormId;
 
-    @ApiModelProperty(value = "宿舍区")
-    private String dormArea;
+    @ApiModelProperty(value = "宿舍区Id")
+    private String dormAreaId;
 
     @ApiModelProperty(value = "宿舍号")
     private Integer dormNum;
+
+    @ApiModelProperty(value = "宿舍号")
+    private String dormAreaName;
 
     @ApiModelProperty(value = "父母电话号码")
     private String parentsPhone;

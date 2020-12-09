@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="graduation.project.mapper.CollegeMapper">
+    <resultMap id="CollegeToClass" type="graduation.project.pojo.vo.CollegeVo">
+        <result column="college_id" property="collegeId"/>
+        <result column="college_name" property="collegeName"/>
+        <collection property="specialtyVo" ofType="graduation.project.pojo.vo.SpecialtyVo">
+            <result column="specialty_id" property="specialtyId"/>
+            <result column="college_id" property="collegeId"/>
+            <result column="specialty_name" property="specialtyName"/>
+            <collection property="classTable" ofType="graduation.project.pojo.entity.ClassTable">
+                <result column="class_table_id" property="classTableId"/>
+                <result column="specialty_id" property="specialtyId"/>
+                <result column="class_table_name" property="classTableName"/>
+                <result column="is_graduate" property="isGraduate"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="selectCollegeToClass" resultMap="CollegeToClass" parameterType="string">
+        SELECT
 
+                college.college_id, college.college_name,
+                specialty.specialty_id, specialty.college_id, specialty.specialty_name,
+                class_table.class_table_id, class_table.specialty_id, class_table.class_table_name, class_table.is_graduate
+        FROM
+                ((
+                         college
+                                 LEFT JOIN specialty ON college.college_id = specialty.college_id
+                         )
+                        LEFT JOIN class_table ON specialty.specialty_id = class_table.specialty_id)
+    </select>
 </mapper>

@@ -29,8 +29,8 @@ public class Dorm implements Serializable {
     @TableId(value = "dorm_id", type = IdType.AUTO)
     private Integer dormId;
 
-    @ApiModelProperty(value = "宿舍区")
-    private String dormArea;
+    @ApiModelProperty(value = "宿舍区id")
+    private String dormAreaId;
 
     @ApiModelProperty(value = "宿舍号")
     private Integer dormNum;

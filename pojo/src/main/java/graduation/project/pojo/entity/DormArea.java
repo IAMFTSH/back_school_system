@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 班级表
+ * 宿舍表
  * </p>
  *
  * @author 邝明山
@@ -21,21 +21,16 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="ClassTable对象", description="班级表")
-public class ClassTable implements Serializable {
+@ApiModel(value="DormArea对象", description="宿舍区表")
+public class DormArea implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "class_table_id", type = IdType.AUTO)
-    private Integer classTableId;
+    @TableId(value = "dorm_id", type = IdType.AUTO)
+    private Integer dormAreaId;
 
-    @ApiModelProperty(value = "专业id")
-    private Integer specialtyId;
+    @ApiModelProperty(value = "宿舍区名")
+    private String dormAreaName;
 
-    @ApiModelProperty(value = "班级名")
-    private String classTableName;
-
-    @ApiModelProperty(value = "是否毕业班")
-    private Boolean isGraduate;
 
 }

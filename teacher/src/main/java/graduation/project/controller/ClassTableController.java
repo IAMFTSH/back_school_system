@@ -21,20 +21,20 @@ public class ClassTableController {
     @Autowired
     ClassTableService classTableService;
     @GetMapping
-    public Result getClassTable(int id){
+    public Result get(int id){
         ClassTable classTable = classTableService.getById(id);
         return Result.success(classTable);
     }
     @PostMapping
-    public void postClassTable(@RequestBody ClassTable classTable){
+    public void post(@RequestBody ClassTable classTable){
         boolean result = classTableService.save(classTable);
     }
     @PutMapping
-    public void putClassTable(@RequestBody ClassTable classTable){
+    public void put(@RequestBody ClassTable classTable){
         boolean result = classTableService.updateById(classTable);
     }
     @DeleteMapping
-    public void deleteClassTable(int id){
+    public void delete(int id){
         boolean result = classTableService.removeById(id);
     }
 }

@@ -21,20 +21,20 @@ public class SpecialtyController {
     @Autowired
     SpecialtyService specialtyService;
     @GetMapping
-    public Result getSpecialty(int id){
+    public Result get(int id){
         Specialty specialty = specialtyService.getById(id);
         return Result.success(specialty);
     }
     @PostMapping
-    public void postSpecialty(@RequestBody Specialty specialty){
+    public void post(@RequestBody Specialty specialty){
         boolean result = specialtyService.save(specialty);
     }
     @PutMapping
-    public void putSpecialty(@RequestBody Specialty specialty){
+    public void put(@RequestBody Specialty specialty){
         boolean result = specialtyService.updateById(specialty);
     }
     @DeleteMapping
-    public void deleteSpecialty(int id){
+    public void delete(int id){
         boolean result = specialtyService.removeById(id);
     }
 }

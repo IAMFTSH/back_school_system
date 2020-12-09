@@ -35,7 +35,7 @@ public class AutoGeneratorCode {
         mpg.setGlobalConfig(gc);
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://"+ ProjectConstant.SERVER_IP +":3306/back_school_system?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8");
+        dsc.setUrl("jdbc:mysql://"+ "localhost" +":3306/back_school_system?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
@@ -104,7 +104,9 @@ public class AutoGeneratorCode {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("address","admin","back_school_information","area","city","class_table","college","dorm","province","specialty","statistics_version","student");  // 生成哪个表
+        //strategy.setInclude("address","admin","back_school_information","area","city","class_table","college","dorm","province","specialty","statistics_version","student");  // 生成哪个表
+        strategy.setInclude("dorm_area");  // 生成哪个表
+
         strategy.setNaming(NamingStrategy.underline_to_camel);   //表下划线转驼峰
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);//列下划线转驼峰
         //strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");

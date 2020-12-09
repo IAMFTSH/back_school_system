@@ -9,9 +9,9 @@ spring:
     #这个名字关系到注册到注册服务器后的名字
     name: teacher
   datasource:
-    username: root
+    username: ${CONTANT.SQLUSERNAME}
     password: ${CONTANT.SQLPASSWORD}
-    url: jdbc:mysql://${CONTANT.SQL_IP}:3306/back_school_system?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://${CONTANT.SQL_IP}:3306/back_school?useSSL=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
