@@ -3,6 +3,7 @@ package graduation.project.pojo.vo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import graduation.project.pojo.entity.Area;
+import graduation.project.pojo.entity.DormArea;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -60,10 +61,13 @@ public class BackSchoolInformationAndStudentVO implements Serializable {
     private String collegeName;
 
     @ApiModelProperty(value = "宿舍表id")
+    private Integer dormAreaId;
+
+    @ApiModelProperty(value = "宿舍表id")
     private Integer dormId;
 
-    @ApiModelProperty(value = "宿舍区")
-    private String dormArea;
+    @ApiModelProperty(value = "宿舍区名字")
+    private String dormAreaName;
 
     @ApiModelProperty(value = "宿舍号")
     private Integer dormNum;
@@ -89,11 +93,11 @@ public class BackSchoolInformationAndStudentVO implements Serializable {
     @ApiModelProperty(value = "预期返校时间")
     private Date backTime;
 
-    @ApiModelProperty(value = "是否健康")
-    private Boolean isHealthy;
+    @ApiModelProperty(value = "健康状态")
+    private Integer HealthyState;
 
     @ApiModelProperty(value = "体温温度")
-    private String temperature;
+    private Double temperature;
 
     @ApiModelProperty(value = "是否联系上")
     private Boolean isContact;
@@ -128,5 +132,6 @@ public class BackSchoolInformationAndStudentVO implements Serializable {
     @ApiModelProperty(value = "省份名称")
     private String provinceName;
 
-
+    @ApiModelProperty(value = "电话")
+    private String phone;
 }

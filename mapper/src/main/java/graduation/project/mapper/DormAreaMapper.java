@@ -2,6 +2,9 @@ package graduation.project.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import graduation.project.pojo.entity.DormArea;
+import graduation.project.pojo.vo.DormAreaVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import graduation.project.pojo.entity.DormArea;
  */
 public interface DormAreaMapper extends BaseMapper<DormArea> {
 
+    List<DormAreaVo> dormAreaAndDorm();
 }

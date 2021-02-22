@@ -1,8 +1,12 @@
 package graduation.project.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import graduation.project.common.contant.SecurityConstant;
 import graduation.project.common.result.Result;
+import graduation.project.common.status.HttpStatus;
+import graduation.project.common.util.StringUtils;
+import graduation.project.pojo.entity.Account;
 import graduation.project.util.JWTUtils;
 import graduation.project.service.AccountService;
 import graduation.project.service.impl.CaptchaService;
@@ -13,7 +17,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +34,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,14 +60,14 @@ public class LoginController {
     private CaptchaService captchaService;
 
     @PostMapping(SecurityConstant.LOGIN)
-    public Result login(@RequestParam(value="username") String username, @RequestParam(value="password")String password, @RequestParam(value="imageCode")String imageCode,@RequestParam(value="captchaKey")String captchaKey, HttpServletRequest request) throws Exception {
+    public Result login(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password, @RequestParam(value = "imageCode") String imageCode, @RequestParam(value = "captchaKey") String captchaKey) throws Exception {
         String str = (String) redisTemplate.opsForValue().get("captcha:verification:".concat(captchaKey));
         redisTemplate.delete("captcha:verification:".concat(captchaKey));
-/*        if(StringUtils.isBlank(str)){
-            return Result.error(HttpStatus.MOVED_PERM,"图片验证码已过期");
+/*        if (StringUtils.isBlank(str)) {
+            return Result.error(HttpStatus.MOVED_PERM, "图片验证码已过期");
         }
         if (!str.toLowerCase().equals(imageCode.toLowerCase())) {
-            return Result.error(500, "图片验证码不匹配");
+            return Result.error(401, "图片验证码不匹配");
         }*/
         Collection<? extends GrantedAuthority> authorities;
         try {
@@ -66,12 +75,12 @@ public class LoginController {
             //也可以直接用userDetailsService进行验证，反正只是为了封装JWT信息
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
             authorities = authenticationManager.authenticate(token).getAuthorities();
-        } catch (BadCredentialsException e) {
+        } catch (AuthenticationException e) {
             return Result.error(401, "账户密码不匹配");
         }
         UserDetails userDetails = User.builder().username(username).password(password).authorities(authorities).build();
         String jwt = jwtUtils.createToken(userDetails);
-        redisTemplate.opsForValue().set("jwt:"+username, jwt, 30 * 60, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("jwt:" + username, jwt, 30 * 60, TimeUnit.SECONDS);
 
         return Result.success(jwt);
     }
@@ -107,5 +116,29 @@ public class LoginController {
         captchaVO.setBase64Img(base64Img);
 
         return Result.success(captchaVO);
+    }
+
+    @GetMapping("putAccountPassword")
+    public Result putAccountPassword(@RequestParam("password") String password, @RequestParam("username") String username, @RequestParam("phone") String phone, @RequestParam(value = "imageCode") String imageCode, @RequestParam(value = "captchaKey") String captchaKey) {
+        String str = (String) redisTemplate.opsForValue().get("captcha:verification:".concat(captchaKey));
+        redisTemplate.delete("captcha:verification:".concat(captchaKey));
+        if (StringUtils.isBlank(str)) {
+            return Result.error(HttpStatus.MOVED_PERM, "图片验证码已过期");
+        }
+        if (!str.toLowerCase().equals(imageCode.toLowerCase())) {
+            return Result.error(401, "图片验证码不匹配");
+        }
+        QueryWrapper queryWrapper=new QueryWrapper();
+        queryWrapper.eq("username",username);
+        queryWrapper.eq("phone",phone);
+        Account account = accountService.getOne(queryWrapper);
+        if(account==null){
+            return Result.error(401, "学号与手机号不匹配 ");
+        }
+        account.setPassword(passwordEncoder.encode(password));
+        accountService.updateById(account);
+        redisTemplate.opsForValue().set("account:" + account.getUsername(), account, 1, TimeUnit.DAYS);
+        return Result.success();
+
     }
 }

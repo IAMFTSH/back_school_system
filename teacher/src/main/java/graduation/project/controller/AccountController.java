@@ -6,12 +6,14 @@ import graduation.project.common.result.Result;
 import graduation.project.common.status.HttpStatus;
 import graduation.project.pojo.entity.Account;
 import graduation.project.common.exception.XlsxException;
+import graduation.project.pojo.entity.Admin;
 import graduation.project.service.AccountService;
 import graduation.project.util.ToEntity;
 import graduation.project.pojo.vo.AccountVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,11 +42,10 @@ public class AccountController {
     @Autowired
     RedisTemplate redisTemplate;
 
-
     @PostMapping
     public Result postAccount(@Valid @RequestBody AccountVo accountVo) {
         accountVo.setPassword(passwordEncoder.encode(accountVo.getPassword()));
-        Account account = ToEntity.Account(accountVo);
+        Account account = ToEntity.account(accountVo);
         try {
             accountService.save(account);
         } catch (DuplicateKeyException e) {
@@ -62,7 +63,7 @@ public class AccountController {
     @PutMapping
     public Result putAccount(@Valid @RequestBody AccountVo accountVo) {
         accountVo.setPassword(passwordEncoder.encode(accountVo.getPassword()));
-        Account account = ToEntity.Account(accountVo);
+        Account account = ToEntity.account(accountVo);
         //让token失效
         redisTemplate.delete("account:" + account.getUsername());
         redisTemplate.delete("jwt:" + account.getUsername());

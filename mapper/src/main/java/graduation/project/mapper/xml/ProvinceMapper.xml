@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="graduation.project.mapper.ProvinceMapper">
-    <select id="all" resultMap="all">
+    <select id="all" resultMap="easyAll">
         select province.province_id,
                province.province_code,
                province.province_name,
@@ -67,6 +67,19 @@
                 <result column="lat" property="lat"/>
                 <result column="data_state" property="dataState"/>
             </collection>
+        </collection>
+    </resultMap>
+
+    <resultMap id="easyAll" type="graduation.project.pojo.vo.ProvinceEasyVo">
+        <result column="province_code" property="code"/>
+        <result column="province_name" property="name"/>
+        <collection property="cities" ofType="graduation.project.pojo.vo.CityEasyVo">
+            <result column="city_code" property="code"/>
+            <result column="city_name" property="name"/>
+         <collection property="areas" ofType="graduation.project.pojo.vo.AreaEasyVo">
+             <result column="area_code" property="code"/>
+             <result column="area_name" property="name"/>
+         </collection>
         </collection>
     </resultMap>
 </mapper>

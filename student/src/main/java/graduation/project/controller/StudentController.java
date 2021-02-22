@@ -9,6 +9,7 @@ import graduation.project.pojo.vo.StudentVo;
 import graduation.project.service.AccountService;
 import graduation.project.service.StudentService;
 import graduation.project.util.JWTUtils;
+import graduation.project.util.ToEntity;
 import graduation.project.util.ToVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -40,6 +41,8 @@ public class StudentController {
     RedisTemplate redisTemplate;
     @Autowired
     JWTUtils jwtUtils;
+    @Autowired
+    AccountService accountService;
     @GetMapping()
     public Result get() {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
@@ -56,12 +59,22 @@ public class StudentController {
     }
 
     @PutMapping
-    public void put(@RequestBody Student student){
+    @Transactional(rollbackFor = Exception.class)
+    public void put(@RequestBody StudentVo studentVo){
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
-        student.setUsername(username);
+        studentVo.setUsername(username);
         QueryWrapper queryWrapper=new QueryWrapper();
         queryWrapper.eq("username",username);
-        boolean update = studentService.update(student, queryWrapper);
+        Student student = ToEntity.student(studentVo);
+        studentService.update(student, queryWrapper);
+        Account account= (Account) redisTemplate.opsForValue().get("account"+username);
+        if(account==null) {
+            account = accountService.accountSelectOne(username);
+        }
+        account.setPhone(studentVo.getPhone());
+        Boolean result =accountService.updateById(account);
+        if (result == true) {
+            redisTemplate.opsForValue().set("account:" + account.getUsername(), account, 1, TimeUnit.DAYS);
+        }
     }
-
 }

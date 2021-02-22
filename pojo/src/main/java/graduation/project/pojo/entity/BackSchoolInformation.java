@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -21,6 +23,8 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
+@NoArgsConstructor
 @Accessors(chain = true)
 @ApiModel(value="BackSchoolInformation对象", description="回校信息表")
 public class BackSchoolInformation implements Serializable {
@@ -44,11 +48,11 @@ public class BackSchoolInformation implements Serializable {
     @ApiModelProperty(value = "预期返校时间")
     private Date backTime;
 
-    @ApiModelProperty(value = "是否健康")
-    private Boolean isHealthy;
+    @ApiModelProperty(value = "健康状态")
+    private Integer HealthyState;
 
     @ApiModelProperty(value = "体温温度")
-    private String temperature;
+    private Double temperature;
 
     @ApiModelProperty(value = "是否联系上")
     private Boolean isContact;

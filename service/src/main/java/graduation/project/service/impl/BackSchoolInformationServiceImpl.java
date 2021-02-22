@@ -7,6 +7,7 @@ import graduation.project.pojo.vo.BackSchoolInformationAndStudentVO;
 import graduation.project.pojo.vo.BackSchoolInformationVO;
 import graduation.project.service.BackSchoolInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,13 +26,16 @@ public class BackSchoolInformationServiceImpl extends ServiceImpl<BackSchoolInfo
     @Autowired
     private BackSchoolInformationMapper backSchoolInformationMapper;
 
+    @Autowired
+    RedisTemplate redisTemplate;
     @Override
     public List<BackSchoolInformationAndStudentVO> selectBackSchoolInformationMapperAndStudent(BackSchoolInformationAndStudentVO backSchoolInformationAndStudentVO) {
         System.out.println(backSchoolInformationAndStudentVO);
         return backSchoolInformationMapper.selectBackSchoolInformationMapperAndStudent(backSchoolInformationAndStudentVO);
     }
     @Override
-    public BackSchoolInformationVO selectBackSchoolInformationByUsername(String username) {
-        return backSchoolInformationMapper.selectBackSchoolInformationByUsername(username);
+    public BackSchoolInformationVO selectBackSchoolInformation(String username) {
+        int statisticsVersionId=(int)redisTemplate.opsForValue().get("statisticsVersionId");
+        return backSchoolInformationMapper.selectBackSchoolInformation(username,statisticsVersionId);
     }
 }

@@ -3,6 +3,7 @@ package graduation.project.controller;
 
 import graduation.project.common.result.Result;
 import graduation.project.pojo.entity.Province;
+import graduation.project.pojo.vo.ProvinceEasyVo;
 import graduation.project.pojo.vo.ProvinceVo;
 import graduation.project.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ProvinceController {
 
     @GetMapping("all")
     public Result getAll(){
-        List<ProvinceVo> all= provinceService.all();
+        List<ProvinceEasyVo> all= provinceService.all();
         return Result.success(all);
     }
     @PostMapping

@@ -27,7 +27,7 @@
         FROM
         (((((
         student
-        JOIN dorm ON student.dorm_id = dorm.dorm_id
+        LEFT JOIN dorm ON student.dorm_id = dorm.dorm_id
         )JOIN dorm_area on dorm.dorm_area_id=dorm_area.dorm_area_id)
         JOIN class_table ON student.class_id = class_table.class_table_id
         )
@@ -72,17 +72,19 @@
         specialty.college_id,
         specialty.specialty_name,
         college.college_id,
-        college.college_name
+        college.college_name,
+        account.phone
         FROM
         (((((
         student
         LEFT JOIN dorm ON student.dorm_id = dorm.dorm_id
-        )JOIN dorm_area on dorm.dorm_area_id=dorm_area.dorm_area_id)
+        )LEFT JOIN dorm_area on dorm.dorm_area_id=dorm_area.dorm_area_id)
         LEFT JOIN class_table ON student.class_id = class_table.class_table_id
         )
         LEFT JOIN specialty ON class_table.specialty_id = specialty.specialty_id
         )
         LEFT JOIN college ON specialty.college_id = college.college_id)
+        LEFT JOIN account on account.username=student.username
         where student.username=#{username}
     </select>
     <resultMap id="Student" type="graduation.project.pojo.vo.StudentVo">
@@ -102,5 +104,6 @@
         <result column="dorm_num" property="dormNum"/>
         <result column="dorm_area_name" property="dormAreaName"/>
         <result column="parents_phone" property="parentsPhone"/>
+        <result column="phone" property="phone"/>
     </resultMap>
 </mapper>

@@ -1,7 +1,9 @@
 package graduation.project.controller;
 
+
 import graduation.project.common.result.Result;
 import graduation.project.common.status.HttpStatus;
+import graduation.project.common.util.StringUtils;
 import graduation.project.pojo.entity.Account;
 import graduation.project.service.AccountService;
 import graduation.project.util.JWTUtils;
@@ -17,8 +19,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.swing.text.html.FormSubmitEvent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -45,6 +49,16 @@ public class AccountController {
         }
         return Result.success(ToVo.Account(account));
     }
+    @GetMapping("student/account/username")
+    public Result get(String username) {
+        Account account= (Account) redisTemplate.opsForValue().get("account"+username);
+        if(account==null) {
+            account = accountService.accountSelectOne(username);
+        }
+        return Result.success(ToVo.Account(account));
+    }
+
+
     @PutMapping("putAccountPhone")
     public Result putAccountPhone(@RequestParam("phone") String phone) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

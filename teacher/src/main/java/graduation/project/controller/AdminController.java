@@ -1,10 +1,13 @@
 package graduation.project.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import graduation.project.common.result.Result;
 import graduation.project.pojo.entity.Admin;
 import graduation.project.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,7 +25,10 @@ public class AdminController {
     AdminService adminService;
     @GetMapping
     public Result getAdmin(int id){
-        Admin admin = adminService.getById(id);
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        QueryWrapper<Admin> wrapper =new QueryWrapper<>();
+        wrapper.eq("username",username);
+        Admin admin = adminService.getOne(wrapper);
         return Result.success(admin);
     }
     @PostMapping

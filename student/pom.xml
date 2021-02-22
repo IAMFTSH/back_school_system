@@ -12,6 +12,7 @@
     <artifactId>student</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>graduation.project</groupId>
             <artifactId>config</artifactId>

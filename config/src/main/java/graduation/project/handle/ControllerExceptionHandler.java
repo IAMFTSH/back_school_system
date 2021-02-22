@@ -4,6 +4,7 @@ import graduation.project.common.result.Result;
 import graduation.project.common.exception.XlsxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -33,4 +34,12 @@ public class ControllerExceptionHandler {
 	public Result handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		return Result.error(500,"防君子不防小人啊,发送的参数不符合规定");
 	}
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(DuplicateKeyException.class)
+	public Result handlerMethodArgumentNotValidException(DuplicateKeyException e) {
+		return Result.error(409,"字段重复");
+	}
+
 }

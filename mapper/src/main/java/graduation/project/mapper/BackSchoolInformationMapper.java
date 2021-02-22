@@ -19,5 +19,5 @@ public interface BackSchoolInformationMapper extends BaseMapper<BackSchoolInform
 
     List<BackSchoolInformationAndStudentVO> selectBackSchoolInformationMapperAndStudent(BackSchoolInformationAndStudentVO backSchoolInformationAndStudentVO);
 
-    BackSchoolInformationVO selectBackSchoolInformationByUsername(String username);
+    BackSchoolInformationVO selectBackSchoolInformation(String username,int statisticsVersionId);
 }

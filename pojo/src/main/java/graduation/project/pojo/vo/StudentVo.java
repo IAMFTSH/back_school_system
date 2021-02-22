@@ -71,4 +71,7 @@ public class StudentVo {
 
     @ApiModelProperty(value = "父母电话号码")
     private String parentsPhone;
+
+    @ApiModelProperty(value = "电话")
+    private String phone;
 }

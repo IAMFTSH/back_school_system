@@ -1,256 +1,260 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="graduation.project.mapper.BackSchoolInformationMapper">
-    <select id="selectBackSchoolInformationMapperAndStudent" resultMap="BackSchoolInformationAndStudent" parameterType="graduation.project.pojo.vo.BackSchoolInformationAndStudentVO">
-        SELECT
-        student.student_id,
-        student.username,
-        student.student_name,
-        student.native_place,
-        student.class_id,
-        student.dorm_id,
-        student.parents_phone,
-        back_school_information.back_school_information_id,
-        back_school_information.username,
-        back_school_information.statistics_version_id,
-        back_school_information.area_code,
-        back_school_information.address,
-        back_school_information.back_time,
-        back_school_information.is_healthy,
-        back_school_information.temperature,
-        back_school_information.is_contact,
-        back_school_information.is_leave,
-        back_school_information.leave_reason,
-        back_school_information.is_back_school,
-        back_school_information.state,
-        area.AREA_ID,
-        area.AREA_CODE,
-        area.CITY_CODE,
-        area.AREA_NAME,
-        area.SHORT_NAME,
-        area.LNG,
-        area.LAT,
-        area.SORT,
-        area.GMT_CREATE,
-        area.GMT_MODIFIED,
-        area.MEMO,
-        area.DATA_STATE,
-        city.CITY_ID,
-        city.CITY_CODE,
-        city.CITY_NAME,
-        city.SHORT_NAME,
-        city.PROVINCE_CODE,
-        city.LNG,
-        city.LAT,
-        city.SORT,
-        city.GMT_CREATE,
-        city.GMT_MODIFIED,
-        city.MEMO,
-        city.DATA_STATE,
-        city.TENANT_CODE,
-        province.PROVINCE_ID,
-        province.PROVINCE_CODE,
-        province.PROVINCE_NAME,
-        province.SHORT_NAME,
-        province.LNG,
-        province.LAT,
-        province.SORT,
-        province.GMT_CREATE,
-        province.GMT_MODIFIED,
-        province.MEMO,
-        province.DATA_STATE,
-        province.TENANT_CODE,
-        dorm.dorm_id,
-        dorm.dorm_area,
-        dorm.dorm_num,
-        class_table.class_table_id,
-        class_table.specialty_id,
-        class_table.class_table_name,
-        class_table.is_graduate,
-        specialty.specialty_id,
-        specialty.college_id,
-        specialty.specialty_name,
-        college.college_id,
-        college.college_name,
-        statistics_version.statistics_version_id,
-        statistics_version.statistics_version_name,
-        statistics_version.enable
-        FROM
-        (((((((((
-        student
-        JOIN back_school_information ON student.username = back_school_information.username
-        )
-        JOIN statistics_version ON statistics_version.statistics_version_id = back_school_information.statistics_version_id
-        )
-        JOIN area ON back_school_information.area_code = area.AREA_CODE
-        )
-        JOIN city ON area.CITY_CODE = city.CITY_CODE
-        )
-        JOIN province ON city.PROVINCE_CODE = province.PROVINCE_CODE
-        )
-        JOIN dorm ON student.dorm_id = dorm.dorm_id
-        )
-        JOIN class_table ON student.class_id = class_table.class_table_id
-        )
-        JOIN specialty ON class_table.specialty_id = specialty.specialty_id
-        )
-        JOIN college ON specialty.college_id = college.college_id
-        )
+    <select id="selectBackSchoolInformationMapperAndStudent" resultMap="BackSchoolInformationAndStudent"
+            parameterType="graduation.project.pojo.vo.BackSchoolInformationAndStudentVO">
+        SELECT student.student_id,
+               student.username,
+               student.student_name,
+               student.native_place,
+               student.class_id,
+               student.dorm_id,
+               student.parents_phone,
+               back_school_information.back_school_information_id,
+               back_school_information.username,
+               back_school_information.statistics_version_id,
+               back_school_information.area_code,
+               back_school_information.address,
+               back_school_information.back_time,
+               back_school_information.healthy_state,
+               back_school_information.temperature,
+               back_school_information.is_contact,
+               back_school_information.is_leave,
+               back_school_information.leave_reason,
+               back_school_information.is_back_school,
+               back_school_information.state,
+               area.AREA_ID,
+               area.AREA_CODE,
+               area.CITY_CODE,
+               area.AREA_NAME,
+               area.SHORT_NAME,
+               area.LNG,
+               area.LAT,
+               area.SORT,
+               area.GMT_CREATE,
+               area.GMT_MODIFIED,
+               area.MEMO,
+               area.DATA_STATE,
+               city.CITY_ID,
+               city.CITY_CODE,
+               city.CITY_NAME,
+               city.SHORT_NAME,
+               city.PROVINCE_CODE,
+               city.LNG,
+               city.LAT,
+               city.SORT,
+               city.GMT_CREATE,
+               city.GMT_MODIFIED,
+               city.MEMO,
+               city.DATA_STATE,
+               city.TENANT_CODE,
+               province.PROVINCE_ID,
+               province.PROVINCE_CODE,
+               province.PROVINCE_NAME,
+               province.SHORT_NAME,
+               province.LNG,
+               province.LAT,
+               province.SORT,
+               province.GMT_CREATE,
+               province.GMT_MODIFIED,
+               province.MEMO,
+               province.DATA_STATE,
+               province.TENANT_CODE,
+               dorm.dorm_id,
+               dorm.dorm_num,
+               dorm_area.dorm_area_id,
+               dorm_area.dorm_area_name,
+               class_table.class_table_id,
+               class_table.specialty_id,
+               class_table.class_table_name,
+               class_table.is_graduate,
+               specialty.specialty_id,
+               specialty.college_id,
+               specialty.specialty_name,
+               college.college_id,
+               college.college_name,
+               statistics_version.statistics_version_id,
+               statistics_version.statistics_version_name,
+               statistics_version.enable,
+                account.phone
+        FROM ((((((((((
+                student
+                        left JOIN back_school_information ON student.username = back_school_information.username
+                )
+                left JOIN statistics_version ON statistics_version.statistics_version_id =
+                                                back_school_information.statistics_version_id
+                )
+                left JOIN area ON back_school_information.area_code = area.AREA_CODE
+                )
+                left JOIN city ON area.CITY_CODE = city.CITY_CODE
+                )
+                left JOIN province ON city.PROVINCE_CODE = province.PROVINCE_CODE
+                )
+                left JOIN dorm ON student.dorm_id = dorm.dorm_id
+                )
+                left JOIN class_table ON student.class_id = class_table.class_table_id
+                )
+                left JOIN specialty ON class_table.specialty_id = specialty.specialty_id
+                )
+                left JOIN college ON specialty.college_id = college.college_id
+                      )
+                     left JOIN dorm_area on dorm.dorm_area_id = dorm_area.dorm_area_id
+                )LEFT JOIN account on account.username = back_school_information.username
         <where>
-            <if test="username!=null and temperature!=''">
-                and username = #{username}
+            <if test="username != null and temperature != ''">
+                and back_school_information.username = #{username}
             </if>
-            <if test="classTableId!=null and temperature!=''">
+            <if test="classTableId != null and temperature != ''">
                 and class_table_id = #{classTableId}
             </if>
-            <if test="specialtyId!=null and temperature!=''">
+            <if test="specialtyId != null and temperature != ''">
                 and class_table.specialty_id = #{specialtyId}
             </if>
-            <if test="collegeId!=null and temperature!=''">
+            <if test="collegeId != null and temperature != ''">
                 and college.college_id = #{collegeId}
             </if>
-            <if test="isHealthy!=null">
-                and back_school_information.is_healthy = #{isHealthy}
+            <if test="healthyState != null">
+                and back_school_information.healthy_state = #{healthyState}
             </if>
-            <if test="temperature!=null and temperature!=''">
+            <if test="temperature != null and temperature != ''">
                 and back_school_information.temperature > #{temperature}
             </if>
-            <if test="isContact!=null">
+            <if test="isContact != null">
                 and back_school_information.is_contact = #{isContact}
             </if>
-            <if test="isLeave!=null">
+            <if test="isLeave != null">
                 and back_school_information.is_leave = #{isLeave}
             </if>
-            <if test="isBackSchool!=null">
+            <if test="isBackSchool != null">
                 and back_school_information.is_back_school = #{isBackSchool}
             </if>
-            <if test="areaCode!=null and areaCode!=''">
+            <if test="areaCode != null and areaCode != ''">
                 and back_school_information.area_code = #{areaCode}
             </if>
-            <if test="cityCode!=null and cityCode!=''">
+            <if test="cityCode != null and cityCode != ''">
                 and city.city_code = #{cityCode}
             </if>
-            <if test="provinceCode!=null and provinceCode!=''">
+            <if test="provinceCode != null and provinceCode != ''">
                 and province.province_code = #{provinceCode}
             </if>
         </where>
     </select>
-    <select id="selectBackSchoolInformationByUsername" resultMap="BackSchoolInformation" parameterType="graduation.project.pojo.vo.BackSchoolInformationVO">
-        SELECT
-                back_school_information.back_school_information_id,
-                back_school_information.username,
-                back_school_information.statistics_version_id,
-                back_school_information.area_code,
-                back_school_information.address,
-                back_school_information.back_time,
-                back_school_information.is_healthy,
-                back_school_information.temperature,
-                back_school_information.is_contact,
-                back_school_information.is_leave,
-                back_school_information.leave_reason,
-                back_school_information.is_back_school,
-                back_school_information.state,
-                area.AREA_ID,
-                area.AREA_CODE,
-                area.CITY_CODE,
-                area.AREA_NAME,
-                area.SHORT_NAME,
-                area.LNG,
-                area.LAT,
-                area.SORT,
-                area.GMT_CREATE,
-                area.GMT_MODIFIED,
-                area.MEMO,
-                area.DATA_STATE,
-                city.CITY_ID,
-                city.CITY_CODE,
-                city.CITY_NAME,
-                city.SHORT_NAME,
-                city.PROVINCE_CODE,
-                city.LNG,
-                city.LAT,
-                city.SORT,
-                city.GMT_CREATE,
-                city.GMT_MODIFIED,
-                city.MEMO,
-                city.DATA_STATE,
-                city.TENANT_CODE,
-                province.PROVINCE_ID,
-                province.PROVINCE_CODE,
-                province.PROVINCE_NAME,
-                province.SHORT_NAME,
-                province.LNG,
-                province.LAT,
-                province.SORT,
-                province.GMT_CREATE,
-                province.GMT_MODIFIED,
-                province.MEMO,
-                province.DATA_STATE,
-                province.TENANT_CODE,
-                statistics_version.statistics_version_id,
-                statistics_version.statistics_version_name,
-                statistics_version.enable
-        FROM
-                ((((
-                        back_school_information
-                                LEFT JOIN statistics_version ON statistics_version.statistics_version_id = back_school_information.statistics_version_id
-                        )
-                        Left JOIN area ON area.AREA_CODE  = back_school_information.area_code
-                        )
-                        Left JOIN city ON area.CITY_CODE = city.CITY_CODE
-                         )
-                        Left JOIN province ON city.PROVINCE_CODE = province.PROVINCE_CODE
-                        )
-        WHERE
-                username = 3333
+    <select id="selectBackSchoolInformation" resultMap="BackSchoolInformation"
+            parameterType="graduation.project.pojo.vo.BackSchoolInformationVO">
+        SELECT back_school_information.back_school_information_id,
+               back_school_information.username,
+               back_school_information.statistics_version_id,
+               back_school_information.area_code,
+               back_school_information.address,
+               back_school_information.back_time,
+               back_school_information.healthy_state,
+               back_school_information.temperature,
+               back_school_information.is_contact,
+               back_school_information.is_leave,
+               back_school_information.leave_reason,
+               back_school_information.is_back_school,
+               back_school_information.state,
+               area.AREA_ID,
+               area.AREA_CODE,
+               area.CITY_CODE,
+               area.AREA_NAME,
+               area.SHORT_NAME,
+               area.LNG,
+               area.LAT,
+               area.SORT,
+               area.GMT_CREATE,
+               area.GMT_MODIFIED,
+               area.MEMO,
+               area.DATA_STATE,
+               city.CITY_ID,
+               city.CITY_CODE,
+               city.CITY_NAME,
+               city.SHORT_NAME,
+               city.PROVINCE_CODE,
+               city.LNG,
+               city.LAT,
+               city.SORT,
+               city.GMT_CREATE,
+               city.GMT_MODIFIED,
+               city.MEMO,
+               city.DATA_STATE,
+               city.TENANT_CODE,
+               province.PROVINCE_ID,
+               province.PROVINCE_CODE,
+               province.PROVINCE_NAME,
+               province.SHORT_NAME,
+               province.LNG,
+               province.LAT,
+               province.SORT,
+               province.GMT_CREATE,
+               province.GMT_MODIFIED,
+               province.MEMO,
+               province.DATA_STATE,
+               province.TENANT_CODE,
+               statistics_version.statistics_version_id,
+               statistics_version.statistics_version_name,
+               statistics_version.enable
+        FROM ((((
+                back_school_information
+                        LEFT JOIN statistics_version ON statistics_version.statistics_version_id =
+                                                        back_school_information.statistics_version_id
+                )
+                Left JOIN area ON area.AREA_CODE = back_school_information.area_code
+                )
+                Left JOIN city ON area.CITY_CODE = city.CITY_CODE
+                      )
+                     Left JOIN province ON city.PROVINCE_CODE = province.PROVINCE_CODE
+                )
+        WHERE back_school_information.username = #{param1} and statistics_version.statistics_version_id=#{param2}
     </select>
     <resultMap id="BackSchoolInformationAndStudent" type="graduation.project.pojo.vo.BackSchoolInformationAndStudentVO">
-        <id property="studentId" column="student_id"/>
-        <result property="username" column="username"/>
-        <result property="studentName" column="student_name"/>
-        <result property="nativePlace" column="native_place"/>
-        <result property="parentsPhone" column="parents_phone"/>
-        <result property="classTableId" column="class_table_id"/>
-        <result property="classTableName" column="class_table_name"/>
-        <result property="isGraduate" column="is_graduate"/>
-        <result property="specialtyId" column="specialty_id"/>
-        <result property="specialtyName" column="specialty_name"/>
-        <result property="collegeId" column="college_id"/>
-        <result property="collegeName" column="college_name"/>
-        <result property="dormId" column="dorm_id"/>
-        <result property="dormArea" column="dorm_area"/>
-        <result property="dormNum" column="dorm_num"/>
-        <result property="backSchoolInformationId" column="back_school_information_id"/>
-        <result property="statisticsVersionId" column="statistical_version_id"/>
-        <result property="statisticsVersionName" column="statistical_version_name"/>
-        <result property="enable" column="enable"/>
-        <result property="areaCode" column="area_code"/>
-        <result property="address" column="address"/>
-        <result property="backTime" column="back_time"/>
-        <result property="isHealthy" column="is_healthy"/>
-        <result property="temperature" column="temperature"/>
-        <result property="isContact" column="is_contact"/>
-        <result property="isLeave" column="is_leave"/>
-        <result property="leaveReason" column="leave_reason"/>
-        <result property="isBackSchool" column="is_back_school"/>
-        <result property="state" column="state"/>
-        <result property="areaName" column="area_name"/>
-        <result property="areaCode" column="area_code"/>
-        <result property="cityName" column="city_name"/>
-        <result property="cityCode" column="city_code"/>
-        <result property="provinceName" column="province_name"/>
-        <result property="provinceCode" column="province_code"/>
+        <result column="student_id" property="studentId"/>
+        <result column="username" property="username"/>
+        <result column="student_name" property="studentName"/>
+        <result column="native_place" property="nativePlace"/>
+        <result column="class_table_id" property="classTableId"/>
+        <result column="class_table_name" property="classTableName"/>
+        <result column="is_graduate" property="isGraduate"/>
+        <result column="specialty_id" property="specialtyId"/>
+        <result column="specialty_name" property="specialtyName"/>
+        <result column="college_id" property="collegeId"/>
+        <result column="college_name" property="collegeName"/>
+        <result column="dorm_area_id" property="dormAreaId"/>
+        <result column="dorm_id" property="dormId"/>
+        <result column="dorm_area_name" property="dormAreaName"/>
+        <result column="dorm_num" property="dormNum"/>
+        <result column="parents_phone" property="parentsPhone"/>
+        <result column="back_school_information_id" property="backSchoolInformationId"/>
+        <result column="statistics_version_id" property="statisticsVersionId"/>
+        <result column="statistics_version_name" property="statisticsVersionName"/>
+        <result column="enable" property="enable"/>
+        <result column="address" property="address"/>
+        <result column="back_time" property="backTime"/>
+        <result column="healthy_state" property="healthyState"/>
+        <result column="temperature" property="temperature"/>
+        <result column="is_contact" property="isContact"/>
+        <result column="is_leave" property="isLeave"/>
+        <result column="leave_reason" property="leaveReason"/>
+        <result column="is_back_school" property="isBackSchool"/>
+        <result column="state" property="state"/>
+        <result column="area_code" property="areaCode"/>
+        <result column="AREA_NAME" property="areaName"/>
+        <result column="CITY_CODE" property="cityCode"/>
+        <result column="CITY_NAME" property="cityName"/>
+        <result column="PROVINCE_CODE" property="provinceCode"/>
+        <result column="PROVINCE_NAME" property="provinceName"/>
+        <result property="phone" column="phone"/>
     </resultMap>
     <resultMap id="BackSchoolInformation" type="graduation.project.pojo.vo.BackSchoolInformationVO">
         <result property="username" column="username"/>
         <result property="backSchoolInformationId" column="back_school_information_id"/>
-        <result property="statisticsVersionId" column="statistical_version_id"/>
-        <result property="statisticsVersionName" column="statistical_version_name"/>
+        <result property="statisticsVersionId" column="statistics_version_id"/>
+        <result property="statisticsVersionName" column="statistics_version_name"/>
         <result property="enable" column="enable"/>
         <result property="areaCode" column="area_code"/>
         <result property="address" column="address"/>
         <result property="backTime" column="back_time"/>
-        <result property="isHealthy" column="is_healthy"/>
+        <result property="healthyState" column="healthy_state"/>
         <result property="temperature" column="temperature"/>
         <result property="isContact" column="is_contact"/>
         <result property="isLeave" column="is_leave"/>

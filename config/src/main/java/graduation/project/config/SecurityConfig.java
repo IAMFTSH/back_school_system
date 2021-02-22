@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         SecurityConstant.IMAGE_VALIDATE,
                         SecurityConstant.SWAGGER,
                         SecurityConstant.REGISTER_ACCOUNT,
+                        SecurityConstant.UPDATEPASSWORD,
                         "/v2/api-docs",
                         "/swagger-resources",
                         "/swagger-resources/**",

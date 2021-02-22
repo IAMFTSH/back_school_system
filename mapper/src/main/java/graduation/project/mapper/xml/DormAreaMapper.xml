@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="graduation.project.mapper.DormAreaMapper">
-
+    <resultMap id="dormAreaAndDorm" type="graduation.project.pojo.vo.DormAreaVo">
+        <result column="dorm_area_id" property="dormAreaId"/>
+        <result column="dorm_area_name" property="dormAreaName"/>
+        <collection property="dorms" ofType="graduation.project.pojo.entity.Dorm">
+            <result column="dorm_id" property="dormId"/>
+            <result column="dorm_area_id" property="dormAreaId"/>
+            <result column="dorm_num" property="dormNum"/>
+        </collection>
+    </resultMap>
+    <select id="dormAreaAndDorm" resultMap="dormAreaAndDorm">
+        select dorm_area.dorm_area_id, dorm_area.dorm_area_name,
+               d.dorm_id, d.dorm_area_id, d.dorm_num
+        from dorm_area join dorm d on dorm_area.dorm_area_id = d.dorm_area_id
+        ORDER BY d.dorm_num
+    </select>
 </mapper>

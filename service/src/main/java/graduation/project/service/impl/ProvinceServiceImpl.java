@@ -3,6 +3,7 @@ package graduation.project.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import graduation.project.mapper.ProvinceMapper;
 import graduation.project.pojo.entity.Province;
+import graduation.project.pojo.vo.ProvinceEasyVo;
 import graduation.project.pojo.vo.ProvinceVo;
 import graduation.project.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class ProvinceServiceImpl extends ServiceImpl<ProvinceMapper, Province> i
     @Autowired
     private ProvinceMapper provinceMapper;
     @Override
-    public List<ProvinceVo> all() {
+    public List<ProvinceEasyVo> all() {
         return provinceMapper.all();
     }
 }

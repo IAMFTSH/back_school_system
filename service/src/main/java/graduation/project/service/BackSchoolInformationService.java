@@ -18,5 +18,5 @@ import java.util.List;
 public interface BackSchoolInformationService extends IService<BackSchoolInformation> {
     public List<BackSchoolInformationAndStudentVO> selectBackSchoolInformationMapperAndStudent(BackSchoolInformationAndStudentVO backSchoolInformationAndStudentVO);
 
-    BackSchoolInformationVO selectBackSchoolInformationByUsername(String username);
+    BackSchoolInformationVO selectBackSchoolInformation(String username);
 }

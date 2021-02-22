@@ -48,11 +48,11 @@ public class BackSchoolInformationVO implements Serializable {
     @ApiModelProperty(value = "预期返校时间")
     private Date backTime;
 
-    @ApiModelProperty(value = "是否健康")
-    private Boolean isHealthy;
+    @ApiModelProperty(value = "健康状态")
+    private Integer HealthyState;
 
     @ApiModelProperty(value = "体温温度")
-    private String temperature;
+    private Double temperature;
 
     @ApiModelProperty(value = "是否联系上")
     private Boolean isContact;
@@ -86,6 +86,9 @@ public class BackSchoolInformationVO implements Serializable {
 
     @ApiModelProperty(value = "省份名称")
     private String provinceName;
+
+
+
 
 
 }
